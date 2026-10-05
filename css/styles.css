@@ -444,21 +444,31 @@ p { margin: 0 0 1.1em; }
 /* ==========================================================================
    FAQ
    ========================================================================== */
-.faq { position: relative; z-index: 2; padding-block: var(--section); background: radial-gradient(50% 50% at 0% 0%, rgba(191,239,255,.06), transparent 60%), radial-gradient(50% 50% at 100% 100%, rgba(22,74,90,.3), transparent 60%), var(--bg); }
-.faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2.5rem, 6vw, 6rem); }
+.faq { position: relative; z-index: 2; padding-block: var(--section); isolation: isolate; overflow: clip; background: var(--bg); }
+.faq-liquid { z-index: 0; }
+.faq-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--bg) 0%, rgba(3,4,5,.15) 15%, rgba(3,4,5,.15) 85%, var(--bg) 100%), linear-gradient(90deg, rgba(3,4,5,.55), rgba(3,4,5,.1) 55%); }
+.faq-panel { padding: clamp(1.25rem, 2.5vw, 2rem); border-radius: 28px; --glass-strong: rgba(255,255,255,.1); --glass-strong-blur: 28px; }
+.faq-panel::after { display: none; }
+.faq-panel .panel-corners { margin-bottom: 1.25rem; }
+.faq-card { display: flex; flex-direction: column; gap: .35rem; margin-top: 2rem; padding: 1.1rem 1.3rem; border-radius: 18px; text-decoration: none; width: max-content; max-width: 100%; }
+.faq-card small { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ivory-50); }
+.faq-card span { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--display); font-size: 1.35rem; color: var(--ivory); }
+.faq-card svg { transition: transform .4s var(--ease-out); }
+.faq-card:hover svg { transform: translateX(4px); }
+.faq-grid { position: relative; z-index: 2; display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
 .faq-head { position: sticky; top: 7rem; align-self: start; }
 .faq-head h2 { font-size: clamp(2.2rem, 3.6vw, 3.4rem); margin-bottom: 1.25rem; }
 .accordion { display: grid; gap: .75rem; }
-.acc { border: 1px solid var(--glass-light-border); border-radius: var(--radius-lg); background: var(--glass-light); box-shadow: inset 0 1px 0 var(--glass-light-hl); transition: background .4s, border-color .4s; }
-.acc[open], .acc:hover { background: rgba(255,255,255,.05); border-color: rgba(191,239,255,.35); }
-.acc summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.35rem 1.6rem; font-family: var(--display); font-size: 1.5rem; color: var(--ivory); line-height: 1.3; }
+.acc { border: 1px solid rgba(255,255,255,.2); border-radius: 18px; background: rgba(255,255,255,.06); box-shadow: inset 0 1px 0 rgba(255,255,255,.3); transition: background .4s, border-color .4s; }
+.acc[open], .acc:hover { background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.45); }
+.acc summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.1rem 1.3rem; font-family: var(--display); font-size: 1.35rem; color: var(--ivory); line-height: 1.3; }
 .acc summary::-webkit-details-marker { display: none; }
 .acc-icon { position: relative; flex: 0 0 2rem; width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid var(--line-gold); display: grid; place-items: center; transition: transform .5s var(--ease-out), background .3s; }
 .acc-icon::before, .acc-icon::after { content: ""; position: absolute; background: var(--gold); width: .8rem; height: 1px; }
 .acc-icon::after { transform: rotate(90deg); transition: transform .4s var(--ease-out); }
 .acc[open] .acc-icon { transform: rotate(45deg); background: rgba(191,239,255,.12); }
 .acc-body { overflow: hidden; }
-.acc-body p { margin: 0; padding: 0 1.6rem 1.5rem; color: var(--ivory-70); max-width: 40em; }
+.acc-body p { margin: 0; padding: 0 1.3rem 1.25rem; font-size: .95rem; color: var(--ivory-70); max-width: 40em; }
 
 /* ==========================================================================
    Contact
