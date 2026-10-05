@@ -181,6 +181,13 @@
     } else ws.forEach((w) => w.classList.add('on'));
   }
 
+  /* ---------- Precision ring: fills to the digits of pi as the card enters ---------- */
+  const arc = $('#precisionArc'), digits = $('#precisionDigits');
+  if (arc && !reduced) {
+    gsap.to({ p: 0 }, { p: 1, duration: 2.2, ease: 'power2.out', scrollTrigger: { trigger: arc, start: 'top 85%', once: true },
+      onUpdate() { const v = this.targets()[0].p; arc.style.strokeDashoffset = 1 - v; digits.textContent = PI.slice(0, 2 + Math.round(v * 6)); } });
+  } else if (arc) { arc.style.strokeDashoffset = 0; digits.textContent = PI.slice(0, 8); }
+
   /* ---------- Tilt + pointer sheen on glass cards ---------- */
   if (finePointer && !reduced) {
     $$('[data-tilt]').forEach((card) => {

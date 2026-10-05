@@ -223,7 +223,7 @@
     <!-- ===================== PHILOSOPHY ===================== -->
     <section class="philosophy" id="philosophy" aria-labelledby="philosophyTitle">
       <!-- The base: molten metal that moves under the pointer -->
-      <div class="liquid base-liquid" data-liquid data-strength="1.4" data-metal="1" data-grade="0.5">
+      <div class="liquid base-liquid" data-liquid data-strength="1.4" data-metal="0.7" data-grade="0.34">
         <video class="liquid-video" poster="assets/video/cosmos-2-poster.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"><source src="assets/video/cosmos-2.mp4" type="video/mp4"><source src="assets/video/cosmos-2.webm" type="video/webm"></video>
         <canvas class="liquid-canvas" aria-hidden="true"></canvas>
       </div>
@@ -235,6 +235,7 @@
         <div class="principles" data-stagger>
           <article class="principle glass" data-tilt>
             <span class="principle-index">01</span>
+            <svg class="viz" viewBox="0 0 48 48" aria-hidden="true"><circle class="track" cx="24" cy="24" r="21"/><circle class="arc" id="precisionArc" cx="24" cy="24" r="21" pathLength="1"/><text x="24" y="24" id="precisionDigits">3.14</text></svg>
             <h3>Precision</h3>
             <p>Every figure is reconciled, every assumption written down. Complex wealth and large enterprises deserve accounts that stand up to any audit, regulator or buyer.</p>
           </article>
@@ -247,6 +248,7 @@
             <span class="principle-index">03</span>
             <h3>Permanence</h3>
             <p>We plan for the next generation, not the next quarter. Many of our engagements begin with one founder and continue with their children and their companies.</p>
+            <div class="viz-ticks" aria-hidden="true"><i style="--h:.3"></i><i style="--h:.5"></i><i style="--h:.4"></i><i style="--h:.7"></i><i style="--h:.6"></i><i style="--h:.8"></i><i style="--h:.75"></i><i style="--h:.95"></i><i style="--h:.9"></i><i style="--h:1"></i></div>
           </article>
         </div>
       </div>
@@ -318,7 +320,7 @@
           <h2 id="clientsTitle" data-split>A limited number of clients, each with a partner's full attention.</h2>
         </div>
         <div class="client-list" data-stagger>
-          <article class="client glass" data-tilt>
+          <article class="client glass glass-solid" data-tilt>
             <span class="client-glyph" aria-hidden="true">$</span>
             <h3>High-net-worth individuals</h3>
             <p>Entrepreneurs, investors and executives whose income, assets and residencies make ordinary tax advice insufficient. We coordinate with your bankers, lawyers and investment managers so your financial picture is complete.</p>
@@ -455,7 +457,7 @@
           (for example Formspree, Netlify Forms or your own server endpoint)
           and remove event.preventDefault() in js/main.js, or send the data with fetch().
         -->
-        <form class="form glass" id="enquiryForm" action="#" method="post" novalidate data-reveal>
+        <form class="form glass glass-strong" id="enquiryForm" action="#" method="post" novalidate data-reveal>
           <h3>Request a consultation</h3>
           <p class="form-note">Tell us a little about your situation. All fields are confidential.</p>
 

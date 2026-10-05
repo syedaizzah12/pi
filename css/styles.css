@@ -21,11 +21,11 @@
   --line-gold: rgba(191, 239, 255, .3);
 
   /* Glass */
-  --glass-bg: rgba(255, 255, 255, .045);
-  --glass-bg-hover: rgba(255, 255, 255, .08);
-  --glass-border: rgba(255, 255, 255, .12);
-  --glass-highlight: rgba(255, 255, 255, .4);
-  --glass-blur: 14px;
+  /* Three tiers of glass: strong (hero panel, form), mid (cards), light (chips, nested) */
+  --glass-strong: rgba(255, 255, 255, .13); --glass-strong-border: rgba(255, 255, 255, .26); --glass-strong-hl: rgba(255, 255, 255, .55); --glass-strong-blur: 20px;
+  --glass-bg: rgba(255, 255, 255, .075); --glass-border: rgba(255, 255, 255, .16); --glass-highlight: rgba(255, 255, 255, .4); --glass-blur: 16px;
+  --glass-light: rgba(255, 255, 255, .04); --glass-light-border: rgba(255, 255, 255, .1); --glass-light-hl: rgba(255, 255, 255, .22); --glass-light-blur: 10px;
+  --glass-bg-hover: rgba(255, 255, 255, .1);
   --radius-xl: 28px;
   --radius-lg: 22px;
   --radius-pill: 999px;
@@ -100,13 +100,13 @@ p { margin: 0 0 1.1em; }
    ========================================================================== */
 .glass {
   position: relative;
-  background: linear-gradient(160deg, rgba(255,255,255,.09), rgba(255,255,255,.03) 45%, rgba(255,255,255,.015));
+  background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 1px 0 var(--glass-highlight),
     inset 0 -1px 0 rgba(255,255,255,.04),
     0 30px 60px -30px rgba(0,0,0,.8);
   transition: background .4s, border-color .4s, box-shadow .4s, transform .5s var(--ease-out);
@@ -127,8 +127,16 @@ p { margin: 0 0 1.1em; }
   background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.14), transparent 45%);
   opacity: 0; transition: opacity .5s;
 }
-.glass:hover { background: linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.05) 45%, rgba(255,255,255,.02)); border-color: rgba(255,255,255,.2); }
-.glass:hover::before, .glass:hover::after { opacity: 1; }
+.glass:hover { background: var(--glass-bg-hover); border-color: rgba(255,255,255,.22); }
+.glass:hover::after { opacity: 1; }
+.glass-strong { background: var(--glass-strong); border-color: var(--glass-strong-border); backdrop-filter: blur(var(--glass-strong-blur)); -webkit-backdrop-filter: blur(var(--glass-strong-blur)); box-shadow: inset 0 1px 0 var(--glass-strong-hl), inset 0 -1px 0 rgba(255,255,255,.05), 0 40px 80px -30px rgba(0,0,0,.85); }
+.glass-light { background: var(--glass-light); border-color: var(--glass-light-border); backdrop-filter: blur(var(--glass-light-blur)); -webkit-backdrop-filter: blur(var(--glass-light-blur)); box-shadow: inset 0 1px 0 var(--glass-light-hl), 0 20px 40px -30px rgba(0,0,0,.8); }
+/* the featured element breaks the pattern: solid frost, dark text */
+.glass-solid { background: linear-gradient(165deg, #ffffff, #e3f1f7 60%, #cfe3ec); border-color: #fff; color: #06141a; box-shadow: inset 0 1px 0 #fff, 0 40px 80px -30px rgba(191,239,255,.35); }
+.glass-solid h3 { color: #06141a; }
+.glass-solid p { color: rgba(6,20,26,.72) !important; }
+.glass-solid .client-glyph { color: #06141a; background: rgba(6,20,26,.06); border-color: rgba(6,20,26,.15); }
+.glass-solid::after { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.6), transparent 45%); }
 
 .btn {
   position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
@@ -290,7 +298,7 @@ p { margin: 0 0 1.1em; }
 .philosophy .base-liquid { z-index: 0; }
 .philosophy::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--bg) 0%, rgba(3,4,5,.2) 18%, rgba(3,4,5,.2) 82%, var(--bg) 100%); }
 .philosophy-inner { position: relative; z-index: 2; }
-.quote { margin: 0; font-family: var(--display); font-size: clamp(1.9rem, 4.2vw, 3.7rem); line-height: 1.2; max-width: 22em; letter-spacing: -0.01em; }
+.quote { margin: 0; position: relative; text-shadow: 0 2px 30px rgba(0,0,0,.8); font-family: var(--display); font-size: clamp(1.9rem, 4.2vw, 3.7rem); line-height: 1.2; max-width: 22em; letter-spacing: -0.01em; }
 .quote p { margin: 0; }
 .quote .w { display: inline-block; opacity: .18; transition: opacity .3s; }
 .quote .w.on { opacity: 1; }
@@ -299,11 +307,18 @@ p { margin: 0 0 1.1em; }
 .principle-index { font-family: var(--mono); font-size: .75rem; letter-spacing: .2em; color: var(--gold); margin-bottom: auto; }
 .principle h3 { font-size: 2.2rem; margin: 2.5rem 0 .6rem; }
 .principle p { color: var(--ivory-70); font-size: .98rem; margin: 0; }
+.viz { position: absolute; top: 1.6rem; right: 1.6rem; width: 4.2rem; height: 4.2rem; }
+.viz circle { fill: none; stroke-width: 1.2; }
+.viz .track { stroke: rgba(255,255,255,.12); }
+.viz .arc { stroke: var(--gold); stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transform: rotate(-90deg); transform-origin: center; }
+.viz text { font-family: var(--mono); font-size: 7px; fill: var(--ivory); text-anchor: middle; dominant-baseline: central; }
+.viz-ticks { position: absolute; left: 2rem; right: 2rem; bottom: 1.2rem; height: 1.2rem; display: flex; align-items: flex-end; gap: 3px; opacity: .7; }
+.viz-ticks i { flex: 1; background: rgba(191,239,255,.5); border-radius: 1px; transform-origin: bottom; transform: scaleY(var(--h)); }
 
 /* ==========================================================================
    Services
    ========================================================================== */
-.services { position: relative; z-index: 2; padding-block: var(--section); background: var(--bg); }
+.services { position: relative; z-index: 2; padding-block: var(--section); background: radial-gradient(60% 50% at 100% 0%, rgba(191,239,255,.08), transparent 60%), radial-gradient(50% 40% at 0% 100%, rgba(22,74,90,.35), transparent 60%), var(--bg); }
 .section-head { display: grid; grid-template-columns: 1.1fr .9fr; gap: 2rem 4rem; align-items: end; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .section-head .lead { margin: 0; justify-self: end; }
 .tabs {
@@ -320,7 +335,8 @@ p { margin: 0 0 1.1em; }
 .ledger { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .ledger li {
   position: relative; display: grid; grid-template-columns: auto 1fr; gap: .4rem 1.25rem; padding: 1.7rem 1.75rem 1.8rem;
-  border-radius: var(--radius-lg); border: 1px solid var(--line); background: rgba(255,255,255,.025);
+  border-radius: var(--radius-lg); border: 1px solid var(--glass-light-border); background: var(--glass-light);
+  box-shadow: inset 0 1px 0 var(--glass-light-hl);
   transition: background .4s, border-color .4s, transform .5s var(--ease-out);
   overflow: hidden;
 }
@@ -336,7 +352,7 @@ p { margin: 0 0 1.1em; }
    Clients — bento
    ========================================================================== */
 .clients { position: relative; z-index: 2; padding-block: var(--section); background: linear-gradient(180deg, var(--bg), var(--bg-2)); overflow: clip; }
-.clients::before { content: ""; position: absolute; left: -10%; top: 20%; width: 50vw; height: 50vw; border-radius: 50%; background: radial-gradient(circle, rgba(22,74,90,.35), transparent 60%); filter: blur(40px); pointer-events: none; }
+.clients::before { content: ""; position: absolute; inset: 0; background: radial-gradient(55% 45% at 85% 10%, rgba(191,239,255,.07), transparent 60%), radial-gradient(60% 50% at 10% 90%, rgba(22,74,90,.4), transparent 60%); pointer-events: none; }
 .clients-grid { position: relative; display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2.5rem, 6vw, 6rem); }
 .clients-head { position: sticky; top: 7rem; align-self: start; }
 .clients-head h2 { font-size: clamp(2.2rem, 3.6vw, 3.4rem); }
@@ -350,7 +366,7 @@ p { margin: 0 0 1.1em; }
 /* ==========================================================================
    Approach — pinned horizontal run
    ========================================================================== */
-.approach { position: relative; z-index: 2; background: var(--bg-2); }
+.approach { position: relative; z-index: 2; background: radial-gradient(50% 60% at 100% 100%, rgba(22,74,90,.35), transparent 60%), radial-gradient(40% 40% at 0% 0%, rgba(191,239,255,.06), transparent 60%), var(--bg-2); }
 .approach-pin { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 5rem 4rem; overflow: hidden; }
 .approach-head { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 4rem; align-items: end; margin-bottom: 2.5rem; }
 .approach-head .lead { margin: 0; justify-self: end; }
@@ -365,12 +381,12 @@ p { margin: 0 0 1.1em; }
 /* ==========================================================================
    FAQ
    ========================================================================== */
-.faq { position: relative; z-index: 2; padding-block: var(--section); background: var(--bg); }
+.faq { position: relative; z-index: 2; padding-block: var(--section); background: radial-gradient(50% 50% at 0% 0%, rgba(191,239,255,.06), transparent 60%), radial-gradient(50% 50% at 100% 100%, rgba(22,74,90,.3), transparent 60%), var(--bg); }
 .faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2.5rem, 6vw, 6rem); }
 .faq-head { position: sticky; top: 7rem; align-self: start; }
 .faq-head h2 { font-size: clamp(2.2rem, 3.6vw, 3.4rem); margin-bottom: 1.25rem; }
 .accordion { display: grid; gap: .75rem; }
-.acc { border: 1px solid var(--line); border-radius: var(--radius-lg); background: rgba(255,255,255,.025); transition: background .4s, border-color .4s; }
+.acc { border: 1px solid var(--glass-light-border); border-radius: var(--radius-lg); background: var(--glass-light); box-shadow: inset 0 1px 0 var(--glass-light-hl); transition: background .4s, border-color .4s; }
 .acc[open], .acc:hover { background: rgba(255,255,255,.05); border-color: rgba(191,239,255,.35); }
 .acc summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.35rem 1.6rem; font-family: var(--display); font-size: 1.5rem; color: var(--ivory); line-height: 1.3; }
 .acc summary::-webkit-details-marker { display: none; }
