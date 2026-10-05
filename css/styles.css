@@ -429,17 +429,22 @@ p { margin: 0 0 1.1em; }
 /* ==========================================================================
    Approach — pinned horizontal run
    ========================================================================== */
-.approach { position: relative; z-index: 2; background: radial-gradient(50% 60% at 100% 100%, rgba(22,74,90,.35), transparent 60%), radial-gradient(40% 40% at 0% 0%, rgba(191,239,255,.06), transparent 60%), var(--bg-2); }
-.approach-pin { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 5rem 4rem; overflow: hidden; }
+.approach { position: relative; z-index: 2; background: var(--bg-2); }
+.approach-liquid { z-index: 0; }
+.approach-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--bg) 0%, rgba(3,4,5,.25) 20%, rgba(3,4,5,.25) 80%, var(--bg) 100%); }
+.approach-pin { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 7.5rem 4rem; overflow: hidden; isolation: isolate; }
+.approach-head, .approach-progress, .steps { position: relative; z-index: 2; }
 .approach-head { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 4rem; align-items: end; margin-bottom: 2.5rem; }
 .approach-head .lead { margin: 0; justify-self: end; }
-.approach-progress { width: calc(100% - var(--gutter) * 2); max-width: calc(var(--wrap) - var(--gutter) * 2); margin: 0 auto 2.5rem; height: 1px; background: var(--line); }
-.approach-progress span { display: block; height: 100%; background: var(--gold); transform-origin: left; transform: scaleX(0); }
-.steps { list-style: none; margin: 0; padding: 0 var(--gutter); display: flex; gap: 1.25rem; width: max-content; perspective: 1600px; }
-.step { width: clamp(20rem, 32vw, 28rem); padding: 2.4rem 2.2rem 2.6rem; min-height: 24rem; display: flex; flex-direction: column; justify-content: flex-end; transform: rotateY(calc(var(--ry, 0) * 1deg)); }
-.numeral { position: absolute; top: 1.6rem; right: 1.8rem; font-family: var(--greek); font-size: 4rem; line-height: 1; color: var(--gold); opacity: .9; }
+.approach-progress { width: calc(100% - var(--gutter) * 2); max-width: calc(var(--wrap) - var(--gutter) * 2); margin: 0 auto 2.5rem; height: 1px; background: rgba(255,255,255,.18); }
+.approach-progress em { position: absolute; right: 0; top: .6rem; font-style: normal; font-family: var(--mono); font-size: .66rem; letter-spacing: .16em; color: var(--ivory-70); }
+.approach-progress span { display: block; height: 100%; background: #fff; transform-origin: left; transform: scaleX(0); }
+.steps { list-style: none; margin: 0 auto; padding: 0 var(--gutter); display: flex; gap: 1.1rem; width: max-content; max-width: 100%; perspective: 1600px; }
+.step { width: clamp(17rem, 21.5vw, 22rem); padding: 2.4rem 2.2rem 2.6rem; min-height: 22rem; display: flex; flex-direction: column; justify-content: flex-end; transform: rotateY(calc(var(--ry, 0) * 1deg)); --glass-strong: rgba(255,255,255,.14); --glass-strong-border: rgba(255,255,255,.35); --glass-strong-blur: 24px; border-radius: 24px; }
+.step::after { display: none; }
+.numeral { position: absolute; top: 1.6rem; right: 1.8rem; font-family: var(--greek); font-size: 4rem; line-height: 1; color: #fff; opacity: .9; }
 .step h3 { font-size: 2rem; margin-bottom: .6rem; }
-.step p { font-size: .98rem; color: var(--ivory-70); margin: 0; }
+.step p { font-size: .98rem; color: rgba(244,246,247,.85); margin: 0; }
 
 /* ==========================================================================
    FAQ

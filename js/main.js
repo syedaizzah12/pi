@@ -292,11 +292,14 @@
   if (!reduced) {
     ScrollTrigger.matchMedia({
       '(min-width: 901px)': () => {
-        const steps = $('#steps'), pin = $('#approachPin'), bar = $('#approachBar');
-        const distance = () => steps.scrollWidth - pin.clientWidth + parseFloat(getComputedStyle(steps).paddingLeft) * 2;
-        const tl = gsap.timeline({ scrollTrigger: { trigger: '#approach', start: 'top top', end: () => `+=${distance() + innerHeight * .4}`, pin, scrub: 1, invalidateOnRefresh: true,
-          onUpdate(self) { gsap.set(bar, { scaleX: self.progress }); } } });
-        tl.to(steps, { x: () => -distance(), ease: 'none' });
+        const steps = $('#steps'), pin = $('#approachPin'), bar = $('#approachBar'), count = $('#approachCount');
+        const total = steps.children.length;
+        // run from card I fully in view to card IV fully in view, one gutter from each edge
+        const distance = () => Math.max(0, steps.scrollWidth - pin.clientWidth);
+        const tl = gsap.timeline({ scrollTrigger: { trigger: '#approach', start: 'top top', end: () => `+=${distance() * 1.2 + innerHeight * 1.1}`, pin, scrub: 1.2, invalidateOnRefresh: true,
+          onUpdate(self) { gsap.set(bar, { scaleX: self.progress }); if (count) count.textContent = `${String(Math.min(total, 1 + Math.floor(self.progress * total * .999))).padStart(2, '0')} / ${String(total).padStart(2, '0')}`; } } });
+        // cards enter from the right and settle with every card in view (a wide screen fits all four; narrower ones end on the last card)
+        tl.fromTo(steps, { x: () => pin.clientWidth * .55 }, { x: () => -distance(), ease: 'none', immediateRender: true });
         $$('.step', steps).forEach((s, i) => gsap.fromTo(s, { '--ry': 18 }, { '--ry': -18, ease: 'none', scrollTrigger: { containerAnimation: tl, trigger: s, start: 'left right', end: 'right left', scrub: true } }));
       },
     });
