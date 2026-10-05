@@ -331,7 +331,7 @@ p { margin: 0 0 1.1em; }
 .services-liquid { z-index: 0; }
 .services-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--bg) 0%, rgba(3,4,5,.2) 18%, rgba(3,4,5,.2) 82%, var(--bg) 100%), radial-gradient(70% 60% at 50% 50%, rgba(0,0,0,0), rgba(3,4,5,.5) 100%); }
 .services-wrap { position: relative; z-index: 2; }
-.services-panel { padding: clamp(1.5rem, 3.5vw, 3rem); border-radius: 32px; --glass-strong: rgba(255,255,255,.1); --glass-strong-blur: 18px; }
+.services-panel { padding: clamp(1.5rem, 3.5vw, 3rem); border-radius: 32px; --glass-strong: rgba(10,13,16,.45); --glass-strong-blur: 18px; }
 .services-panel::after { display: none; }
 .panel-corners { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--mono); font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ivory-50); }
 .panel-corners-bottom { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.1); }
@@ -457,7 +457,7 @@ p { margin: 0 0 1.1em; }
 .faq { position: relative; z-index: 2; padding-block: var(--section); isolation: isolate; overflow: clip; background: var(--bg); }
 .faq-liquid { z-index: 0; }
 .faq-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--bg) 0%, rgba(3,4,5,.05) 22%, rgba(3,4,5,.05) 78%, var(--bg) 100%), linear-gradient(90deg, rgba(3,4,5,.5), rgba(3,4,5,.05) 50%, rgba(3,4,5,.2) 100%); }
-.faq-panel { padding: clamp(1.25rem, 2.5vw, 2rem); border-radius: 28px; --glass-strong: rgba(255,255,255,.1); --glass-strong-blur: 18px; }
+.faq-panel { padding: clamp(1.25rem, 2.5vw, 2rem); border-radius: 28px; --glass-strong: rgba(10,13,16,.45); --glass-strong-blur: 18px; }
 .faq-panel::after { display: none; }
 .faq-panel .panel-corners { margin-bottom: 1.25rem; }
 .faq-card { display: flex; flex-direction: column; gap: .35rem; margin-top: 2rem; padding: 1.1rem 1.3rem; border-radius: 18px; text-decoration: none; width: max-content; max-width: 100%; }
