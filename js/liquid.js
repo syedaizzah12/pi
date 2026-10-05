@@ -180,6 +180,7 @@ class LiquidSurface {
       const onMeta = () => { this.uniforms.uTexAspect.value = this.video.videoWidth / this.video.videoHeight || 1; };
       this.video.readyState >= 1 ? onMeta() : this.video.addEventListener('loadedmetadata', onMeta, { once: true });
       this.video.readyState >= 2 ? ready() : this.video.addEventListener('loadeddata', ready, { once: true });
+      const rate = parseFloat(this.el.dataset.rate || '1'); if (rate !== 1) this.video.playbackRate = rate;
       this.video.play().catch(() => {});
     } else {
       const onLoad = () => { this.uniforms.uTexAspect.value = this.image.naturalWidth / this.image.naturalHeight || 1; this.texture.needsUpdate = true; ready(); };

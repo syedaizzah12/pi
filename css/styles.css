@@ -446,7 +446,7 @@ p { margin: 0 0 1.1em; }
    ========================================================================== */
 .faq { position: relative; z-index: 2; padding-block: var(--section); isolation: isolate; overflow: clip; background: var(--bg); }
 .faq-liquid { z-index: 0; }
-.faq-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--bg) 0%, rgba(3,4,5,.15) 15%, rgba(3,4,5,.15) 85%, var(--bg) 100%), linear-gradient(90deg, rgba(3,4,5,.55), rgba(3,4,5,.1) 55%); }
+.faq-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--bg) 0%, rgba(3,4,5,.1) 22%, rgba(3,4,5,.1) 78%, var(--bg) 100%), linear-gradient(90deg, rgba(3,4,5,.6), rgba(3,4,5,.15) 50%, rgba(3,4,5,.35) 100%); }
 .faq-panel { padding: clamp(1.25rem, 2.5vw, 2rem); border-radius: 28px; --glass-strong: rgba(255,255,255,.1); --glass-strong-blur: 28px; }
 .faq-panel::after { display: none; }
 .faq-panel .panel-corners { margin-bottom: 1.25rem; }
