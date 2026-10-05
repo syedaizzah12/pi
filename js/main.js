@@ -15,7 +15,7 @@
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
   if (!reduced) {
-    lenis = new Lenis({ lerp: 0.07, smoothWheel: true, wheelMultiplier: 0.9 });
+    lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.95, syncTouch: false });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
@@ -119,10 +119,10 @@
 
   if (loader && !reduced) {
     const tl = gsap.timeline({ onComplete: finishLoading });
-    tl.to($$('.loader-ring circle'), { strokeDashoffset: 0, duration: 1.3, ease: 'power2.inOut', stagger: .12 }, 0)
-      .to($('.loader-pi'), { opacity: 1, y: 0, duration: .8, ease: 'power3.out' }, .5)
-      .to({ n: 2 }, { n: PI.length, duration: 1.4, ease: 'power1.inOut', onUpdate() { digitsEl.textContent = PI.slice(0, Math.round(this.targets()[0].n)); } }, .2)
-      .to({}, { duration: .25 });
+    tl.to($$('.loader-ring circle'), { strokeDashoffset: 0, duration: .9, ease: 'power2.inOut', stagger: .1 }, 0)
+      .to($('.loader-pi'), { opacity: 1, y: 0, duration: .6, ease: 'power3.out' }, .35)
+      .to({ n: 2 }, { n: PI.length, duration: 1, ease: 'power1.inOut', onUpdate() { digitsEl.textContent = PI.slice(0, Math.round(this.targets()[0].n)); } }, .15)
+      .to({}, { duration: .1 });
   } else finishLoading();
 
   /* ---------- Hero scroll choreography ---------- */

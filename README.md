@@ -6,10 +6,10 @@ Static site for Pi, a private accounting and CPA firm. No build step: open `inde
 
 - `index.html` — all content, SEO metadata and structured data (JSON-LD)
 - `css/styles.css` — design tokens, liquid-glass components, sections, motion, responsive rules
-- `js/liquid.js` — WebGL "liquid metal" surface: renders each `[data-liquid]` video through a ripple/refraction shader that reacts to the pointer and touch
+- `js/liquid.js` — raw-WebGL "liquid" surface: renders each `[data-liquid]` video or image through a ripple/refraction shader that reacts to the pointer and touch; media loads lazily and renders only while visible
 - `js/main.js` — smooth scroll (Lenis), scroll choreography (GSAP + ScrollTrigger), loader, melted-glass filter animation, orbiting emblem, tilt cards, tabs, accordion, cursor, form validation
 - `assets/video/` — the three cosmos clips (WebM + MP4) and posters
-- `vendor/` — self-hosted Three.js, GSAP, ScrollTrigger and Lenis (no CDN dependency)
+- `vendor/` — self-hosted GSAP, ScrollTrigger and Lenis (no CDN dependency)
 
 ## Before launch
 
