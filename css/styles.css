@@ -225,7 +225,6 @@ p { margin: 0 0 1.1em; }
    ========================================================================== */
 .liquid { position: absolute; inset: 0; overflow: hidden; z-index: 0; background: #000; }
 .liquid-video, .liquid-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hero-liquid .liquid-video { object-fit: contain; }
 .liquid-canvas { opacity: 0; transition: opacity 1.2s ease; }
 .liquid.is-ready .liquid-canvas { opacity: 1; }
 .liquid.is-ready .liquid-video { opacity: 0; }
@@ -275,7 +274,7 @@ p { margin: 0 0 1.1em; }
 @keyframes sheen { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
 .hero-copy { position: relative; z-index: 3; max-width: 46rem; display: flex; flex-direction: column; align-items: center; }
-.hero-copy::before { content: ""; position: absolute; inset: -30% -40%; z-index: -1; pointer-events: none; background: radial-gradient(55% 55% at 50% 60%, rgba(3,4,5,.55), rgba(3,4,5,.3) 45%, rgba(3,4,5,0) 75%); }
+.hero-copy::before { content: ""; position: absolute; inset: -30% -40%; z-index: -1; pointer-events: none; background: radial-gradient(55% 55% at 50% 60%, rgba(3,4,5,.5), rgba(3,4,5,.25) 45%, rgba(3,4,5,0) 75%); }
 .hero-title { font-size: clamp(3.4rem, 8vw, 7.4rem); line-height: .96; letter-spacing: .015em; color: #fff; text-shadow: 0 2px 30px rgba(0,0,0,.75), 0 0 80px rgba(0,0,0,.6); text-wrap: balance; }
 .hero-title em { font-style: italic; color: var(--gold-hot); }
 .hero-intro { margin-top: 1.5rem; max-width: 36em; font-size: clamp(1.02rem, 1.3vw, 1.2rem); color: rgba(244,246,247,.86); text-shadow: 0 1px 20px rgba(0,0,0,.8); }
