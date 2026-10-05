@@ -256,16 +256,22 @@
 
     <!-- ===================== SERVICES ===================== -->
     <section class="services" id="services" aria-labelledby="servicesTitle">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow" data-reveal>Services</p>
+      <!-- teal liquid field behind one floating frosted panel -->
+      <div class="liquid services-liquid" data-liquid data-strength="0.8" data-grade="0.6">
+        <video class="liquid-video" poster="assets/video/cosmos-1-poster.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"><source src="assets/video/cosmos-1.mp4" type="video/mp4"><source src="assets/video/cosmos-1.webm" type="video/webm"></video>
+        <canvas class="liquid-canvas" aria-hidden="true"></canvas>
+      </div>
+      <div class="services-veil" aria-hidden="true"></div>
+      <div class="wrap services-wrap">
+        <div class="services-panel glass glass-strong" data-reveal>
+          <div class="panel-corners" aria-hidden="true"><span>Three practices</span><span>Partner-led · Confidential</span></div>
+          <div class="panel-head">
+            <p class="eyebrow">Services</p>
             <h2 id="servicesTitle" data-split>Accounting, tax and CPA services</h2>
+            <p class="lead">Three practices, one standard. Choose the practice that fits your situation, or speak with a partner if your affairs span all three.</p>
           </div>
-          <p class="lead" data-reveal>Three practices, one standard. Choose the practice that fits your situation, or speak with a partner if your affairs span all three.</p>
-        </div>
 
-        <div class="tabs" role="tablist" aria-label="Service practices" data-reveal>
+        <div class="tabs" role="tablist" aria-label="Service practices">
           <button class="tab" role="tab" id="tab-private" aria-controls="panel-private" aria-selected="true" data-magnetic><span>Private clients</span></button>
           <button class="tab" role="tab" id="tab-enterprise" aria-controls="panel-enterprise" aria-selected="false" tabindex="-1" data-magnetic><span>Enterprises</span></button>
           <button class="tab" role="tab" id="tab-cpa" aria-controls="panel-cpa" aria-selected="false" tabindex="-1" data-magnetic><span>CPA services</span></button>
@@ -308,6 +314,8 @@
               <li><span class="ledger-no">06</span><h3>Multi-state and sales tax compliance</h3><p>Nexus reviews, state income and franchise tax filings, and sales tax registration and returns for businesses selling into several US states.</p></li>
             </ul>
           </div>
+        </div>
+          <div class="panel-corners panel-corners-bottom" aria-hidden="true"><span>Private clients · Enterprises · CPA</span><span>Fixed fee, agreed before work begins</span></div>
         </div>
       </div>
     </section>
