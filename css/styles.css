@@ -302,12 +302,17 @@ p { margin: 0 0 1.1em; }
 .philosophy .base-liquid { z-index: 0; }
 .philosophy::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--bg) 0%, rgba(3,4,5,.2) 18%, rgba(3,4,5,.2) 82%, var(--bg) 100%); }
 .philosophy-inner { position: relative; z-index: 2; }
+.quote-panel { padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1.25rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem); border-radius: 28px; --glass-strong: rgba(10,13,16,.62); --glass-strong-border: rgba(255,255,255,.22); --glass-strong-blur: 26px; }
+.quote-panel::after { display: none; }
+.quote-panel .panel-corners { margin-bottom: 1.5rem; }
+.quote-panel .eyebrow { margin-bottom: 1rem; }
 .quote { margin: 0; position: relative; text-shadow: 0 2px 30px rgba(0,0,0,.8); font-family: var(--display); font-size: clamp(1.9rem, 4.2vw, 3.7rem); line-height: 1.2; max-width: 22em; letter-spacing: -0.01em; }
 .quote p { margin: 0; }
-.quote .w { display: inline-block; opacity: .18; transition: opacity .3s; }
+.quote .w { display: inline-block; opacity: .32; transition: opacity .3s; }
 .quote .w.on { opacity: 1; }
 .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: clamp(3.5rem, 7vw, 5.5rem); perspective: 1400px; }
-.principle { padding: 2.2rem 2rem 2.4rem; min-height: 19rem; display: flex; flex-direction: column; }
+.principle { padding: 2.2rem 2rem 2.4rem; min-height: 19rem; display: flex; flex-direction: column; background: rgba(8,10,12,.62); border-color: rgba(255,255,255,.2); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 30px 60px -30px rgba(0,0,0,.9); }
+.principle:hover { background: rgba(8,10,12,.7); }
 .principle-index { font-family: var(--mono); font-size: .75rem; letter-spacing: .2em; color: var(--gold); margin-bottom: auto; }
 .principle h3 { font-size: 2.2rem; margin: 2.5rem 0 .6rem; }
 .principle p { color: var(--ivory-70); font-size: .98rem; margin: 0; }
