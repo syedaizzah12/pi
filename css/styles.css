@@ -247,7 +247,7 @@ p { margin: 0 0 1.1em; }
 
 /* The emblem in 3D: pi in the centre, glyph ring orbiting around it */
 .orbit {
-  position: absolute; left: 50%; top: 50%; width: min(50vmin, 30rem); aspect-ratio: 1; transform: translate(-50%, -54%);
+  position: absolute; left: 50%; top: 50%; width: min(62vmin, 38rem); aspect-ratio: 1; transform: translate(-50%, -50%);
   perspective: 1200px; pointer-events: none; z-index: 1;
 }
 .orbit-ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(191,239,255,.28); transform: rotateX(68deg); box-shadow: 0 0 40px rgba(191,239,255,.12), inset 0 0 40px rgba(191,239,255,.08); }
@@ -264,7 +264,7 @@ p { margin: 0 0 1.1em; }
 }
 @keyframes ringspin { to { transform: rotateX(68deg) rotateZ(360deg); } }
 
-.hero-pi-wrap { position: relative; z-index: 2; pointer-events: none; display: grid; place-items: center; margin: .75rem 0 0; }
+.hero-pi-wrap { position: relative; z-index: 2; pointer-events: none; display: grid; place-items: center; margin: 1.25rem 0 clamp(2rem, 5vmin, 3.5rem); }
 .hero-pi, .hero-pi-glow { grid-area: 1 / 1; font-family: var(--greek); font-size: clamp(7rem, 19vmin, 12rem); line-height: .9; }
 .hero-pi {
   background: linear-gradient(115deg, #ffffff 0%, #f2f4f6 22%, #c9d0d6 40%, #ffffff 50%, #8a939c 62%, #e9edf0 80%, #ffffff 100%);
@@ -490,7 +490,7 @@ p { margin: 0 0 1.1em; }
   .nav-links a:not(.btn) { display: block; padding: .9rem 1rem; font-size: 1rem; }
   .nav-links .btn { margin-top: .5rem; }
   .hero-stage { padding-top: 7rem; }
-  .orbit { width: min(80vw, 22rem); }
+  .orbit { width: min(96vw, 24rem); }
   .hero-pi, .hero-pi-glow { font-size: clamp(6.5rem, 30vw, 10rem); }
   .hero-panel { border-radius: 22px; }
   .hero-for { display: none; }
