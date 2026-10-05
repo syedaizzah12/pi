@@ -28,6 +28,7 @@ const frag = /* glsl */`
   uniform vec4  uPoints[${MAX_POINTS}];
   uniform float uStrength;
   uniform float uMetal;
+  uniform float uGrade;
   varying vec2 vUv;
 
   vec2 cover(vec2 uv) {
@@ -72,6 +73,22 @@ const frag = /* glsl */`
     col.r = texture2D(uTex, uv + grad * ca).r;
     col.g = texture2D(uTex, uv).g;
     col.b = texture2D(uTex, uv - grad * ca).b;
+
+    // unsharp mask: recovers edge detail lost when the clip is scaled up
+    vec2 px = 1.0 / uRes;
+    vec3 blur = (texture2D(uTex, uv + vec2(px.x, 0.0)).rgb + texture2D(uTex, uv - vec2(px.x, 0.0)).rgb
+               + texture2D(uTex, uv + vec2(0.0, px.y)).rgb + texture2D(uTex, uv - vec2(0.0, px.y)).rgb) * 0.25;
+    col += (col - blur) * 0.9;
+
+    // cinematic grade: darker, a little more contrast, slightly desaturated, cool
+    float lum = dot(col, vec3(0.299, 0.587, 0.114));
+    col = mix(vec3(lum), col, 0.82);
+    col = (col - 0.5) * 1.12 + 0.5;
+    col *= uGrade;
+    col *= vec3(0.94, 0.98, 1.04);
+    // vignette so the frame falls to black at the edges
+    float vig = smoothstep(1.15, 0.35, length((vUv - 0.5) * vec2(1.0, 0.85)) * 1.25);
+    col *= mix(0.35, 1.0, vig);
 
     // metal sheen
     vec3 L = normalize(vec3(0.35, 0.65, 0.7));
@@ -132,6 +149,7 @@ class LiquidSurface {
       uPoints: { value: this.points },
       uStrength: { value: this.strength },
       uMetal: { value: this.metal },
+      uGrade: { value: parseFloat(this.el.dataset.grade || "0.6") },
     };
     const mat = new THREE.ShaderMaterial({ uniforms: this.uniforms, vertexShader: vert, fragmentShader: frag, depthTest: false, depthWrite: false });
     this.scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
