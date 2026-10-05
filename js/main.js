@@ -131,6 +131,7 @@
       .to($('.hero-pi-wrap'), { yPercent: -30, scale: 1.55, opacity: 0, ease: 'none' }, 0)
       .to($('.orbit'), { yPercent: -20, scale: 1.4, opacity: 0, ease: 'none' }, 0)
       .to($('.hero-copy'), { yPercent: -35, opacity: 0, ease: 'none' }, .15)
+      .to($('#heroPanel'), { scale: .96, opacity: 0, ease: 'none' }, .1)
       .to($('.hero-for'), { opacity: 0, ease: 'none' }, 0);
 
     // pi leans toward the pointer

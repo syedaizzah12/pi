@@ -20,7 +20,7 @@
   <meta property="og:title" content="Pi | Private Accounting &amp; CPA Firm">
   <meta property="og:description" content="Precision, in perpetuity. Accounting, tax and CPA services for high-net-worth individuals, family offices and large enterprises.">
   <meta property="og:url" content="https://www.yourdomain.com/">
-  <meta property="og:image" content="https://www.yourdomain.com/assets/video/cosmos-4-poster.jpg">
+  <meta property="og:image" content="https://www.yourdomain.com/assets/hero-blob.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Pi | Private Accounting &amp; CPA Firm">
   <meta name="twitter:description" content="Precision, in perpetuity. Accounting, tax and CPA services for high-net-worth individuals and enterprises.">
@@ -181,13 +181,15 @@
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="hero" aria-labelledby="heroTitle">
       <!-- Liquid surface: the video is rendered through a WebGL shader that ripples under the pointer -->
-      <div class="liquid hero-liquid" data-liquid data-strength="0.9" data-grade="0.72">
-        <video class="liquid-video" poster="assets/video/cosmos-4-poster.jpg" muted loop playsinline autoplay preload="auto" aria-hidden="true"><source src="assets/video/cosmos-4.mp4" type="video/mp4"><source src="assets/video/cosmos-4.webm" type="video/webm"></video>
+      <div class="liquid hero-liquid" data-liquid data-strength="1" data-grade="1.0" data-fit="contain" data-scale="1.4" data-shift="0,0.02">
+        <img class="liquid-video" src="assets/hero-blob.webp" alt="" width="400" height="400" decoding="async" fetchpriority="high">
         <canvas class="liquid-canvas" aria-hidden="true"></canvas>
       </div>
       <div class="hero-veil" aria-hidden="true"></div>
 
       <div class="hero-stage" id="heroStage">
+        <div class="hero-panel glass glass-strong" id="heroPanel">
+        <div class="panel-corners" aria-hidden="true"><span>Private accounting &amp; CPA</span><span>Est. for the long term</span></div>
         <!-- The emblem: the glyph ring orbits pi in 3D -->
         <div class="hero-pi-wrap" id="heroPi" aria-hidden="true">
           <div class="orbit" id="orbit">
@@ -208,6 +210,8 @@
             <a class="btn btn-glass" href="#services" data-magnetic><span>Explore our services</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
           <p class="hero-for" data-reveal>Tax planning · Audit &amp; assurance · Wealth &amp; estate structuring · Outsourced CFO · US CPA services</p>
+        </div>
+        <div class="panel-corners panel-corners-bottom" aria-hidden="true"><span>Partner-led</span><span>Confidential by agreement</span></div>
         </div>
         <div class="scroll-cue" aria-hidden="true"><span class="scroll-cue-line"></span><span>Scroll</span></div>
       </div>
