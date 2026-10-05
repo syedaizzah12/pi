@@ -39,8 +39,7 @@ const frag = /* glsl */`
   float height(vec2 p) {
     float h = 0.0;
     // idle molten swell
-    h += 0.014 * sin(p.x * 7.0 + uTime * 0.55) * sin(p.y * 6.0 - uTime * 0.4);
-    h += 0.008 * sin(p.x * 13.0 - uTime * 0.8 + p.y * 4.0);
+    h += 0.006 * sin(p.x * 5.0 + uTime * 0.45) * sin(p.y * 4.0 - uTime * 0.35);
     // ripples from touches
     for (int i = 0; i < ${MAX_POINTS}; i++) {
       vec4 pt = uPoints[i];
@@ -49,11 +48,11 @@ const frag = /* glsl */`
       float dist = length(p - pt.xy);
       float wave = sin(dist * 40.0 - age * 8.5);
       float env  = exp(-dist * 6.0) * exp(-age * 1.5) * smoothstep(0.0, 0.1, age);
-      h += wave * env * 0.06 * pt.w;
+      h += wave * env * 0.045 * pt.w;
     }
     // dent that follows the finger
     float dm = length(p - uMouse);
-    h -= uHover * 0.07 * exp(-dm * dm * 70.0);
+    h -= uHover * 0.05 * exp(-dm * dm * 70.0);
     return h;
   }
 
@@ -67,8 +66,8 @@ const frag = /* glsl */`
     vec2 grad = vec2(hx - h, hy - h) / e;
     vec3 n = normalize(vec3(-grad * 0.55, 1.0));
 
-    vec2 uv = cover(vUv) + grad * 0.04 * uStrength;
-    float ca = 0.006 * uStrength * min(length(grad), 2.0);
+    vec2 uv = cover(vUv) + grad * 0.014 * uStrength;
+    float ca = 0.0018 * uStrength * min(length(grad), 2.0);
     vec3 col;
     col.r = texture2D(uTex, uv + grad * ca).r;
     col.g = texture2D(uTex, uv).g;
@@ -81,9 +80,9 @@ const frag = /* glsl */`
     float spec = pow(max(dot(n, H), 0.0), 60.0);
     float fres = pow(1.0 - max(dot(n, V), 0.0), 3.0);
     vec3 gold = vec3(0.82, 0.94, 1.0);
-    col += gold * spec * (0.5 + 0.9 * uMetal);
-    col += gold * fres * (0.15 + 0.35 * uMetal);
-    col *= 1.0 - clamp(abs(h) * 6.0, 0.0, 0.35) * uMetal;
+    col += gold * spec * (0.35 + 0.7 * uMetal);
+    col += gold * fres * (0.08 + 0.25 * uMetal);
+    col *= 1.0 - clamp(abs(h) * 6.0, 0.0, 0.25) * uMetal;
 
     gl_FragColor = vec4(col, 1.0);
     #include <colorspace_fragment>
@@ -113,7 +112,7 @@ class LiquidSurface {
     try {
       this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
     } catch (e) { return; }
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     this.scene = new THREE.Scene();
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 

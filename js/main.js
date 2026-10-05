@@ -15,7 +15,7 @@
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
   if (!reduced) {
-    lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    lenis = new Lenis({ lerp: 0.07, smoothWheel: true, wheelMultiplier: 0.9 });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
@@ -71,7 +71,7 @@
   }
 
   /* ---------- Melted glass filter (animated turbulence + moving light) ---------- */
-  const noise = $('#meltNoise'), noiseSm = $('#meltNoiseSm'), light = $('#meltLight');
+  const noise = null, noiseSm = $('#meltNoiseSm'), light = $('#meltLight'); // melt filter retired: pi is rendered clean
   if (!reduced && noise) {
     let t = 0;
     const tick = () => {
