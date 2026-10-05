@@ -29,11 +29,22 @@ const frag = /* glsl */`
   uniform float uStrength;
   uniform float uMetal;
   uniform float uGrade;
+  uniform float uFit;
+  uniform float uScale;
+  uniform vec2 uShift;
   varying vec2 vUv;
 
   vec2 cover(vec2 uv) {
     float sa = uRes.x / uRes.y;
-    vec2 s = (sa > uTexAspect) ? vec2(1.0, uTexAspect / sa) : vec2(sa / uTexAspect, 1.0);
+    vec2 s;
+    if (uFit > 0.5) {
+      // contain: the whole image is visible, centred, scaled by uScale, with a slow drift
+      s = (sa > uTexAspect) ? vec2(sa / uTexAspect, 1.0) : vec2(1.0, uTexAspect / sa);
+      s /= uScale;
+      uv += vec2(sin(uTime * 0.18) * 0.012, cos(uTime * 0.14) * 0.01) - uShift;
+    } else {
+      s = (sa > uTexAspect) ? vec2(1.0, uTexAspect / sa) : vec2(sa / uTexAspect, 1.0);
+    }
     return (uv - 0.5) * s + 0.5;
   }
 
@@ -73,6 +84,7 @@ const frag = /* glsl */`
     col.r = texture2D(uTex, uv + grad * ca).r;
     col.g = texture2D(uTex, uv).g;
     col.b = texture2D(uTex, uv - grad * ca).b;
+    if (uFit > 0.5) { vec2 inb = step(vec2(0.0), uv) * step(uv, vec2(1.0)); col *= inb.x * inb.y; }
 
     // unsharp mask: recovers edge detail lost when the clip is scaled up
     vec2 px = 1.0 / uRes;
@@ -110,6 +122,7 @@ class LiquidSurface {
   constructor(el) {
     this.el = el;
     this.video = el.querySelector('video');
+    this.image = el.querySelector('img');
     this.canvas = el.querySelector('canvas');
     this.strength = parseFloat(el.dataset.strength || '1');
     this.metal = parseFloat(el.dataset.metal || '0');
@@ -133,7 +146,7 @@ class LiquidSurface {
     this.scene = new THREE.Scene();
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-    this.texture = new THREE.VideoTexture(this.video);
+    this.texture = this.video ? new THREE.VideoTexture(this.video) : new THREE.Texture(this.image);
     this.texture.colorSpace = THREE.SRGBColorSpace;
     this.texture.minFilter = THREE.LinearFilter;
     this.texture.magFilter = THREE.LinearFilter;
@@ -150,6 +163,9 @@ class LiquidSurface {
       uStrength: { value: this.strength },
       uMetal: { value: this.metal },
       uGrade: { value: parseFloat(this.el.dataset.grade || "0.6") },
+      uFit: { value: this.el.dataset.fit === "contain" ? 1 : 0 },
+      uScale: { value: parseFloat(this.el.dataset.scale || "1") },
+      uShift: { value: new THREE.Vector2(...(this.el.dataset.shift || "0,0").split(",").map(Number)) },
     };
     const mat = new THREE.ShaderMaterial({ uniforms: this.uniforms, vertexShader: vert, fragmentShader: frag, depthTest: false, depthWrite: false });
     this.scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
@@ -159,11 +175,16 @@ class LiquidSurface {
     new IntersectionObserver(([en]) => { this.visible = en.isIntersecting; this.visible ? this.play() : this.pause(); }, { rootMargin: '10%' }).observe(this.el);
     document.addEventListener('visibilitychange', () => (document.hidden ? this.pause() : this.visible && this.play()));
 
-    const onMeta = () => { this.uniforms.uTexAspect.value = this.video.videoWidth / this.video.videoHeight || 1; };
-    this.video.readyState >= 1 ? onMeta() : this.video.addEventListener('loadedmetadata', onMeta, { once: true });
     const ready = () => this.el.classList.add('is-ready');
-    this.video.readyState >= 2 ? ready() : this.video.addEventListener('loadeddata', ready, { once: true });
-    this.video.play().catch(() => {});
+    if (this.video) {
+      const onMeta = () => { this.uniforms.uTexAspect.value = this.video.videoWidth / this.video.videoHeight || 1; };
+      this.video.readyState >= 1 ? onMeta() : this.video.addEventListener('loadedmetadata', onMeta, { once: true });
+      this.video.readyState >= 2 ? ready() : this.video.addEventListener('loadeddata', ready, { once: true });
+      this.video.play().catch(() => {});
+    } else {
+      const onLoad = () => { this.uniforms.uTexAspect.value = this.image.naturalWidth / this.image.naturalHeight || 1; this.texture.needsUpdate = true; ready(); };
+      this.image.complete && this.image.naturalWidth ? onLoad() : this.image.addEventListener('load', onLoad, { once: true });
+    }
 
     this.bindPointer();
     this.play();
@@ -215,7 +236,7 @@ class LiquidSurface {
   play() {
     if (this.running || !this.renderer) return;
     this.running = true;
-    this.video.play().catch(() => {});
+    if (this.video) this.video.play().catch(() => {});
     const loop = () => {
       if (!this.running) return;
       this.uniforms.uTime.value = (performance.now() - this.start) / 1000;
@@ -230,7 +251,7 @@ class LiquidSurface {
   pause() {
     this.running = false;
     cancelAnimationFrame(this.raf);
-    if (!this.visible) this.video.pause();
+    if (!this.visible && this.video) this.video.pause();
   }
 
   // Lets the page script fire a ripple (e.g. on load) at a point in element space 0..1
