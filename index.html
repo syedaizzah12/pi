@@ -323,34 +323,92 @@
       </div>
     </section>
 
-    <!-- ===================== CLIENTS ===================== -->
+    <!-- ===================== CLIENTS (node graph) ===================== -->
     <section class="clients" id="clients" aria-labelledby="clientsTitle">
-      <div class="wrap clients-grid">
-        <div class="clients-head">
-          <p class="eyebrow" data-reveal>Whom we serve</p>
-          <h2 id="clientsTitle" data-split>A limited number of clients, each with a partner's full attention.</h2>
+      <div class="wrap">
+        <div class="section-head clients-head">
+          <div>
+            <p class="eyebrow" data-reveal>Whom we serve</p>
+            <h2 id="clientsTitle" data-split>A limited number of clients, each with a partner's full attention.</h2>
+          </div>
+          <div class="board-tools" aria-hidden="true">
+            <span class="tool tool-pill"><i class="dot"></i>Engagement map</span>
+            <span class="tool"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+            <span class="tool"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></span>
+            <span class="tool"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 15v5h-5M20 9V4h-5M4 15v5h5"/></svg></span>
+            <span class="tool"><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+          </div>
         </div>
-        <div class="client-list" data-stagger>
-          <article class="client glass glass-solid" data-tilt>
-            <span class="client-glyph" aria-hidden="true">$</span>
-            <h3>High-net-worth individuals</h3>
-            <p>Entrepreneurs, investors and executives whose income, assets and residencies make ordinary tax advice insufficient. We coordinate with your bankers, lawyers and investment managers so your financial picture is complete.</p>
+
+        <div class="board" id="board" data-reveal>
+          <svg class="wires" id="wires" aria-hidden="true"></svg>
+
+          <!-- centre: the partner -->
+          <article class="node node-core" data-node="core" style="--x:50%;--y:50%">
+            <header><i class="dot dot-ice"></i><span>Pi · your partner</span>
+              <svg class="ico" viewBox="0 0 24 24"><path d="M5 19h14M7 19V9l5-4 5 4v10M10 19v-5h4v5"/></svg></header>
+            <ul class="rows">
+              <li><span>clients</span><b>a limited number</b></li>
+              <li><span>attention</span><b>one partner, in full</b></li>
+              <li><span>confidentiality</span><b>by written agreement</b></li>
+              <li><span>fee</span><b>fixed, agreed before work</b></li>
+            </ul>
+            <i class="port port-l" data-port="core-l"></i><i class="port port-r" data-port="core-r"></i>
           </article>
-          <article class="client glass" data-tilt>
-            <span class="client-glyph" aria-hidden="true">∞</span>
-            <h3>Families and family offices</h3>
-            <p>Multi-generational families who want their wealth reported clearly today and transferred efficiently tomorrow. We act as the accounting and tax function of the family office, or support the team you already have.</p>
+
+          <article class="node glass" data-node="hnwi" style="--x:14%;--y:22%">
+            <header><i class="dot"></i><span>High-net-worth individuals</span>
+              <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></header>
+            <ul class="rows">
+              <li><span>profile</span><b>entrepreneurs, investors, executives</b></li>
+              <li><span>complexity</span><b>income, assets, residencies</b></li>
+              <li><span>we coordinate</span><b>bankers, lawyers, managers</b></li>
+            </ul>
+            <p>Income, assets and residencies that make ordinary tax advice insufficient. We coordinate with your bankers, lawyers and investment managers so your financial picture is complete.</p>
+            <i class="port port-r" data-port="hnwi"></i>
           </article>
-          <article class="client glass" data-tilt>
-            <span class="client-glyph" aria-hidden="true">Σ</span>
-            <h3>Large enterprises</h3>
-            <p>Private groups, listed companies and their boards who need audit, tax and reporting work that holds up under scrutiny from regulators, lenders and acquirers.</p>
+
+          <article class="node glass" data-node="family" style="--x:14%;--y:76%">
+            <header><i class="dot"></i><span>Families and family offices</span>
+              <svg class="ico" viewBox="0 0 24 24"><circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M2 20c0-3.5 2.7-6 6-6M22 20c0-3.5-2.7-6-6-6M8 14c2 0 4 1 4 1s2-1 4-1"/></svg></header>
+            <ul class="rows">
+              <li><span>profile</span><b>multi-generational families</b></li>
+              <li><span>today</span><b>wealth reported clearly</b></li>
+              <li><span>tomorrow</span><b>transferred efficiently</b></li>
+            </ul>
+            <p>We act as the accounting and tax function of the family office, or support the team you already have.</p>
+            <i class="port port-r" data-port="family"></i>
           </article>
-          <article class="client glass" data-tilt>
-            <span class="client-glyph" aria-hidden="true">Δ</span>
-            <h3>US persons abroad</h3>
+
+          <article class="node glass" data-node="enterprise" style="--x:86%;--y:22%">
+            <header><i class="dot"></i><span>Large enterprises</span>
+              <svg class="ico" viewBox="0 0 24 24"><path d="M3 21h18M5 21V5h8v16M13 11h6v10M8 9h2M8 13h2M8 17h2M16 15h1"/></svg></header>
+            <ul class="rows">
+              <li><span>profile</span><b>private groups, listed companies, boards</b></li>
+              <li><span>work</span><b>audit, tax, reporting</b></li>
+              <li><span>holds up to</span><b>regulators, lenders, acquirers</b></li>
+            </ul>
+            <p>Audit, tax and reporting work that holds up under scrutiny from regulators, lenders and acquirers.</p>
+            <i class="port port-l" data-port="enterprise"></i>
+          </article>
+
+          <article class="node glass" data-node="us" style="--x:86%;--y:76%">
+            <header><i class="dot"></i><span>US persons abroad</span>
+              <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></header>
+            <ul class="rows">
+              <li><span>profile</span><b>citizens, green card holders, US-owned businesses</b></li>
+              <li><span>keep in order</span><b>IRS · FBAR · FATCA</b></li>
+              <li><span>handled by</span><b>a licensed CPA</b></li>
+            </ul>
             <p>American citizens, green card holders and US-owned businesses outside the United States who need a CPA to keep IRS, FBAR and FATCA obligations in order.</p>
+            <i class="port port-l" data-port="us"></i>
           </article>
+
+          <span class="tag" data-tag="hnwi" style="--x:33%;--y:34%">Private clients</span>
+          <span class="tag" data-tag="family" style="--x:33%;--y:66%">Family office</span>
+          <span class="tag" data-tag="enterprise" style="--x:67%;--y:34%">Enterprise</span>
+          <span class="tag" data-tag="us" style="--x:67%;--y:66%">CPA</span>
+          <p class="board-hint" aria-hidden="true">Drag a node · hover to trace its connection</p>
         </div>
       </div>
     </section>

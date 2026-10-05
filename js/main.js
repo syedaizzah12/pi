@@ -189,6 +189,58 @@
       onUpdate() { const v = this.targets()[0].p; arc.style.strokeDashoffset = 1 - v; digits.textContent = PI.slice(0, 2 + Math.round(v * 6)); } });
   } else if (arc) { arc.style.strokeDashoffset = 0; digits.textContent = PI.slice(0, 8); }
 
+  /* ---------- Engagement map: wires, drag, hover trace ---------- */
+  const board = $('#board'), wires = $('#wires');
+  if (board && wires) {
+    const links = [['core-l', 'hnwi'], ['core-l', 'family'], ['core-r', 'enterprise'], ['core-r', 'us']];
+    const sets = links.map(([a, b]) => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.classList.add('wire-set'); g.dataset.to = b;
+      ['wire-glow', 'wire', 'wire-flow'].forEach((c) => { const p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('class', c); g.appendChild(p); });
+      wires.appendChild(g); return { a, b, g };
+    });
+    const port = (id) => board.querySelector(`[data-port="${id}"]`);
+    const center = (el) => { const r = el.getBoundingClientRect(), b = board.getBoundingClientRect(); return [r.left - b.left + r.width / 2, r.top - b.top + r.height / 2]; };
+    const draw = () => {
+      if (!isDesktop()) return;
+      sets.forEach(({ a, b, g }) => {
+        const [x1, y1] = center(port(a)), [x2, y2] = center(port(b));
+        const dx = Math.max(60, Math.abs(x2 - x1) * .5) * (x2 > x1 ? 1 : -1);
+        const d = `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
+        g.querySelectorAll('path').forEach((p) => p.setAttribute('d', d));
+        const tag = board.querySelector(`[data-tag="${b}"]`);
+        if (tag) { tag.style.left = `${(x1 + x2) / 2}px`; tag.style.top = `${(y1 + y2) / 2}px`; }
+      });
+    };
+    draw(); addEventListener('resize', draw); addEventListener('load', draw);
+    // nodes
+    $$('.node', board).forEach((node) => {
+      const id = node.dataset.node;
+      node.addEventListener('pointerenter', () => sets.forEach((s) => s.g.classList.toggle('is-lit', id === 'core' || s.b === id)));
+      node.addEventListener('pointerleave', () => sets.forEach((s) => s.g.classList.remove('is-lit')));
+      let drag = null;
+      node.addEventListener('pointerdown', (e) => {
+        if (!isDesktop() || e.button) return;
+        const b = board.getBoundingClientRect(), r = node.getBoundingClientRect();
+        drag = { ox: e.clientX - (r.left - b.left + r.width / 2), oy: e.clientY - (r.top - b.top + r.height / 2), w: r.width, h: r.height, bw: b.width, bh: b.height };
+        node.classList.add('is-drag'); node.setPointerCapture(e.pointerId); gsap.killTweensOf(node);
+      });
+      node.addEventListener('pointermove', (e) => {
+        if (!drag) return;
+        const x = gsap.utils.clamp(drag.w / 2 + 8, drag.bw - drag.w / 2 - 8, e.clientX - drag.ox);
+        const y = gsap.utils.clamp(drag.h / 2 + 8, drag.bh - drag.h / 2 - 8, e.clientY - drag.oy);
+        node.style.setProperty('--x', `${(x / drag.bw) * 100}%`); node.style.setProperty('--y', `${(y / drag.bh) * 100}%`); draw();
+      });
+      const end = () => { if (drag) { drag = null; node.classList.remove('is-drag'); } };
+      node.addEventListener('pointerup', end); node.addEventListener('pointercancel', end);
+      // gentle idle float; wires follow
+      if (!reduced && id !== 'core') gsap.to(node, { y: `+=${6 + Math.random() * 6}`, duration: 3 + Math.random() * 2, yoyo: true, repeat: -1, ease: 'sine.inOut', onUpdate: draw });
+    });
+    if (!reduced) ScrollTrigger.create({ trigger: board, start: 'top 80%', once: true, onEnter: () => {
+      gsap.from($$('.node', board), { opacity: 0, scale: .9, duration: .9, ease: 'power3.out', stagger: .08, onUpdate: draw, clearProps: 'opacity,scale' });
+      gsap.from($$('.wire-set path', board), { opacity: 0, duration: 1.2, delay: .4, ease: 'power2.out' });
+    } });
+  }
+
   /* ---------- Tilt + pointer sheen on glass cards ---------- */
   if (finePointer && !reduced) {
     $$('[data-tilt]').forEach((card) => {
